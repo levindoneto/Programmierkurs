@@ -10,7 +10,7 @@ def normalize(seq1: Iterable[int]) -> List[float]:
     result = []
     for number in seq1:
         result.append(number/sumOfSeqOne)
-    print ("result: ", result)
+    #print ("result: ", result)
     return result
 
 

@@ -1,0 +1,1 @@
+### Repository with the assignments for the course Programmierkurs, winter semester of 2017

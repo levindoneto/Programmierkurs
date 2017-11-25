@@ -7,6 +7,7 @@ def even_sum(seq: Iterable[int]) -> int:
     for i in seq:
         if (i%2 == 0):
             count+=i
+    #print("count: ", count)
     return count
 
 def main():

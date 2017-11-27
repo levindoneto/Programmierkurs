@@ -1,29 +1,27 @@
 from typing import *
 import reader
-from progkurs import *
-
+#from progkurs import *
 
 T = TypeVar('T')
 
 def generate_ngrams(seq: Tuple[T], n: int) -> List[Tuple[T]]:
-    """Generates ngrams of length 'n' from the input sequence 'seq'.
-    ngrams are sub-sequences of 'seq' of length 'n'.
-    For seq = ('a', 'b', 'c', 'd') and n = 2, the result would be
-    ngrams = [('a', 'b'), ('b', 'c'), ('c', 'd')]
-    """
-    ngrams: list = []
-    for i in range(fill(____)):
+    #ngrams are sub-sequences of 'seq' of length 'n'.
+    #For seq = ('a', 'b', 'c', 'd') and n = 2, the result would be
+    #ngrams = [('a', 'b'), ('b', 'c'), ('c', 'd')]
+
+    ngrams = []
+    for i in range(5): # 5 -> something
         ngrams.append(seq[i:i+n])
     return ngrams
 
 
 def get_corpus_frequencies(seq: List[Tuple[T]]) -> Dict[Tuple[T], int]:
-    """Counts how often each each item occurs in 'seq' and returns
-    the frequencies in a dictionary.
-    """
-    frequencies: dict = {}
+    #Counts how often each each item occurs in 'seq' and returns
+    #the frequencies in a dictionary.
+
+    frequencies = {}
     for token in seq:
-        fill(____)
+        print("fill")
     return frequencies
 
 
@@ -33,7 +31,8 @@ def print_most_frequent(token_frequencies: Dict[Iterable[str], int], n: int) -> 
             token_frequencies.items(),
             key=lambda x: x[1],
             reverse=True)[:n]:
-        print(f"{v}\t{' '.join(k)}")
+        print("fix print")
+        #print(f"{v}\t{' '.join(k) }")
     print()
 
 
@@ -53,5 +52,4 @@ def main():
     print_most_frequent(trigram_frequencies, 10)
 
 
-if __name__ == '__main__':
-    main()
+main()

@@ -8,7 +8,6 @@ def generate_ngrams(seq: Tuple[T], n: int) -> List[Tuple[T]]: # Tuple: Inmutable
     # ngrams are sub-sequences of 'seq' of length 'n'.
     # For seq = ('a', 'b', 'c', 'd') and n = 2, the result would be
     # ngrams = [('a', 'b'), ('b', 'c'), ('c', 'd')]
-
     ngrams = []
     for i in range(len(seq)):
         ngrams.append(seq[i:i+n])
@@ -16,13 +15,17 @@ def generate_ngrams(seq: Tuple[T], n: int) -> List[Tuple[T]]: # Tuple: Inmutable
     return ngrams
 
 
-def get_corpus_frequencies( seq: List[Tuple[T]] ) -> Dict[Tuple[T], int]:
+def get_corpus_frequencies(seq: List[Tuple[T]]) -> Dict[Tuple[T], int]:
     # Counts how often each item occurs in 'seq' and returns
     # the frequencies in a dictionary.
-
     frequencies = {}
     for token in seq:
-        print("fill")
+        if (token in frequencies):
+            newFrequency = str(int(frequencies[token])+1)
+            frequencies.update({token: newFrequency})
+        else:
+            frequencies.update({token: '0'})
+    print(frequencies)
     return frequencies
 
 
@@ -44,11 +47,11 @@ def main():
     bigrams = generate_ngrams(corpus, 2)
     trigrams = generate_ngrams(corpus, 3)
 
-    #unigram_frequencies = get_corpus_frequencies(unigrams)
-    #bigram_frequencies = get_corpus_frequencies(bigrams)
-    #trigram_frequencies = get_corpus_frequencies(trigrams)
+    unigram_frequencies = get_corpus_frequencies(unigrams)
+    bigram_frequencies = get_corpus_frequencies(bigrams)
+    trigram_frequencies = get_corpus_frequencies(trigrams)
 
-    #print_most_frequent(unigram_frequencies, 10)
+    #print_most_frequent(unigram_frequencies, 10) # 10 most frequent
     #print_most_frequent(bigram_frequencies, 10)
     #print_most_frequent(trigram_frequencies, 10)
 

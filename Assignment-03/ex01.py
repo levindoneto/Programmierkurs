@@ -25,19 +25,19 @@ def get_corpus_frequencies(seq: List[Tuple[T]]) -> Dict[Tuple[T], int]:
             frequencies.update({token: newFrequency})
         else:
             frequencies.update({token: '0'})
-    print(frequencies)
+    #print(frequencies)
     return frequencies
 
 
-def print_most_frequent(token_frequencies: Dict[Iterable[str], int], n: int) -> None:
-    print("freq\tngram")
+def print_most_frequent(type: str, token_frequencies: Dict[Iterable[str], int], n: int) -> None:
+    print("\nThe ", n, " most frequent", type+"s", "in the given corpus:")
+    print("Frequencies -> n-gram")
     for k, v in sorted(
             token_frequencies.items(),
             key=lambda x: x[1],
             reverse=True)[:n]:
-        print("fix print")
-        #print(f"{v}\t{' '.join(k) }")
-    print()
+
+        print("  ", k, "-> " , v)
 
 
 def main():
@@ -51,8 +51,8 @@ def main():
     bigram_frequencies = get_corpus_frequencies(bigrams)
     trigram_frequencies = get_corpus_frequencies(trigrams)
 
-    #print_most_frequent(unigram_frequencies, 10) # 10 most frequent
-    #print_most_frequent(bigram_frequencies, 10)
-    #print_most_frequent(trigram_frequencies, 10)
+    print_most_frequent("unigram", unigram_frequencies, 10) # 10 most frequent
+    print_most_frequent("bigram", bigram_frequencies, 10)
+    print_most_frequent("trigram", trigram_frequencies, 10)
 
 main()

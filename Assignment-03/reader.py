@@ -7,4 +7,4 @@ def read(path):
                 continue
             line = line.lower()
             text.extend(line.split())
-    return tuple(text)
+    return tuple(text) # Tuple with each element being a fragment from the text

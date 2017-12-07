@@ -9,7 +9,7 @@ def generate_ngrams(seq: Tuple[T], n: int) -> List[Tuple[T]]: # Tuple: Inmutable
     # For seq = ('a', 'b', 'c', 'd') and n = 2, the result would be
     # ngrams = [('a', 'b'), ('b', 'c'), ('c', 'd')]
     ngrams = []
-    for i in range(len(seq)):
+    for i in range(len(seq)-n+1):
         ngrams.append(seq[i:i+n])
     #print("n-grams: ", ngrams)
     return ngrams

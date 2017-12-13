@@ -20,12 +20,11 @@ simply running the program.
 
 
 from typing import *
-from progkurs import *
-
+#from progkurs import *
 T = TypeVar("T")
 Count = int
 
-def accuracy(classifications: Iterable[T], gold: Iterable[T]) -> float:
+def accuracy(classifications, gold):
     """
     >>> accuracy([], []) # zero predictions are taken to be accurate ones.
     1.0
@@ -41,9 +40,9 @@ def accuracy(classifications: Iterable[T], gold: Iterable[T]) -> float:
     >>> accuracy(filter(even, nums), filter(odd, nums))
     0.0
     """
-    correct: Count = 0
-    incorrect: Count = 0
-    result: float = 1.0
+    correct = 0
+    incorrect = 0
+    result = 1.0
 
     for c, g in zip(classifications, gold):
         if c == g:
@@ -52,49 +51,43 @@ def accuracy(classifications: Iterable[T], gold: Iterable[T]) -> float:
             incorrect += 1
     if correct + incorrect > 0:
         result = correct / (correct + incorrect)
-    return result
+    return result # Working properly
 
-def pr_stats(judgments: Iterable[bool], gold: Iterable[bool]):
+def pr_stats(judgments, gold): # Working
     """
     Counts upon which, precision and recall values can be calculated.
     (cf. https://en.wikipedia.org/wiki/Precision_and_recall )
     """
-    true_positives:  Count = 0
-    false_positives: Count = 0
-    true_negatives:  Count = 0
-    false_negatives: Count = 0
+    true_positives = 0
+    false_positives = 0
+    true_negatives = 0
+    false_negatives = 0
 
     for j, g in zip(judgments, gold):
-        if j:
-            # positive
+        if j: # positive
             if g:
-                # relevant
-                true_positives += 1
+                true_positives += 1 # relevant
             else:
-                # not relevant
-                fill(____) += 1
+                false_positives += 1 # not relevant
         else:
-            # negative
-            if g:
-                # relevant
-                fill(____) += 1
+            if g: # negative
+                false_negatives += 1 # relevant
             else:
-                # not relevant
-                true_negatives += 1
+                true_negatives += 1 # not relevant
+
     return dict(tp=true_positives,
                 fp=false_positives,
                 tn=true_negatives,
                 fn=false_negatives)
 
+def precision_from_stats(stats):
 
-def precision_from_stats(stats: Mapping[str,Count]) -> float:
+    #Calculate precision based on output from pr_stats.
     """
-    Calculate precision based on output from pr_stats.
-    
-    >>> match = dict(judgments=[True, False], gold=[True, False])
-    >>> match_stats = pr_stats(**match)
-    >>> precision_from_stats(match_stats)
-    1.0
+    match = dict(judgments=[True, False], gold=[True, False])
+    match_stats = pr_stats(**match)
+    precision_from_stats(match_stats)
+    #1.0
     >>> no_match = dict(judgments=[True, False], gold=[False, True])
     >>> no_match_stats = pr_stats(**no_match)
     >>> precision_from_stats(no_match_stats)
@@ -116,16 +109,16 @@ def precision_from_stats(stats: Mapping[str,Count]) -> float:
     >>> precision_from_stats(half_match4_stats)
     0.5
     """
-    result: float = 1.0
+    result = 1.0
     tp, fp, tn, fn = map(stats.get, "tp fp tn fn".split())
-    # TODO: ensure we don't divide by zero here!
-    if fill(____): result = tp / (tp + fp)
+    if fill((tp + fp) != 0):
+        result = tp / (tp + fp)
     return result
 
-def recall_from_stats(stats: Mapping[str,Count]) -> float:
+def recall_from_stats(stats):
     """
     Calculate recall based on output from pr_stats.
-    
+
     >>> match = dict(judgments=[True, False], gold=[True, False])
     >>> match_stats = pr_stats(**match)
     >>> recall_from_stats(match_stats)
@@ -151,22 +144,20 @@ def recall_from_stats(stats: Mapping[str,Count]) -> float:
     >>> recall_from_stats(half_match4_stats)
     0.5
     """
-    result: float = 1.0
+    result = 1.0
     tp, fp, tn, fn = map(stats.get, "tp fp tn fn".split())
     if tp + fn > 0: result = fill(____)
     return result
 
-def fscore_from_stats(stats: Mapping[str,Count], beta: float=1) -> float:
+def fscore_from_stats(stats, beta):
     """
     Calculate fscore -- with parameter beta! -- from pr_stats output.
     (cf. https://en.wikipedia.org/wiki/F1_score )
     """
-    result: float = 1.0
+    result = 1.0
     p, r = (f(stats) for f in (precision_from_stats, recall_from_stats))
     if p * r > 0: result = fill(____)
     return result
-
-
 
 def test():
     import doctest

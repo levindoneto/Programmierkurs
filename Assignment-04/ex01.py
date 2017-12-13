@@ -24,7 +24,7 @@ from typing import *
 T = TypeVar("T")
 Count = int
 
-def accuracy(classifications, gold):
+def accuracy(classifications, gold): # Ok
     """
     >>> accuracy([], []) # zero predictions are taken to be accurate ones.
     1.0
@@ -51,9 +51,9 @@ def accuracy(classifications, gold):
             incorrect += 1
     if correct + incorrect > 0:
         result = correct / (correct + incorrect)
-    return result # Working properly
+    return result
 
-def pr_stats(judgments, gold): # Working
+def pr_stats(judgments, gold): # Ok
     """
     Counts upon which, precision and recall values can be calculated.
     (cf. https://en.wikipedia.org/wiki/Precision_and_recall )
@@ -80,7 +80,7 @@ def pr_stats(judgments, gold): # Working
                 tn=true_negatives,
                 fn=false_negatives)
 
-def precision_from_stats(stats):
+def precision_from_stats(stats): # Ok
 
     #Calculate precision based on output from pr_stats.
     """
@@ -111,11 +111,11 @@ def precision_from_stats(stats):
     """
     result = 1.0
     tp, fp, tn, fn = map(stats.get, "tp fp tn fn".split())
-    if fill((tp + fp) != 0):
-        result = tp / (tp + fp)
+    if((tp + fp) > 0):
+        result = tp / (tp + fp) # precision or positive predictive value
     return result
 
-def recall_from_stats(stats):
+def recall_from_stats(stats): # Ok
     """
     Calculate recall based on output from pr_stats.
 
@@ -146,17 +146,20 @@ def recall_from_stats(stats):
     """
     result = 1.0
     tp, fp, tn, fn = map(stats.get, "tp fp tn fn".split())
-    if tp + fn > 0: result = fill(____)
+    if tp + fn > 0:
+        result = tp / (tp + fn)
     return result
 
-def fscore_from_stats(stats, beta):
+def fscore_from_stats(stats, beta): # Ok
     """
     Calculate fscore -- with parameter beta! -- from pr_stats output.
     (cf. https://en.wikipedia.org/wiki/F1_score )
     """
     result = 1.0
     p, r = (f(stats) for f in (precision_from_stats, recall_from_stats))
-    if p * r > 0: result = fill(____)
+    if p * r > 0:
+        result = ((1 + beta*beta)*((p*r)/((beta*beta)*p)+r))
+        print("RESULT: ", result)
     return result
 
 def test():

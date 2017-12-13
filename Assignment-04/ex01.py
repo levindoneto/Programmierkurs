@@ -159,7 +159,6 @@ def fscore_from_stats(stats, beta): # Ok
     p, r = (f(stats) for f in (precision_from_stats, recall_from_stats))
     if p * r > 0:
         result = ((1 + beta*beta)*((p*r)/((beta*beta)*p)+r))
-        print("RESULT: ", result)
     return result
 
 def test():

@@ -94,7 +94,7 @@ def drop(n: int, seq: Iterable[T]) -> Iterable[T]:
 def test():
     import os, sys
     print("checking types")
-    #assert os.system(f"'{sys.executable}' -m mypy '{__file__}'") == 0, "mypy could not verify types"
+    #assert os.system(sys.executable+' -m mypy '+__file__) == 0, "mypy could not verify types"
 
     import doctest
     doctest.testmod()

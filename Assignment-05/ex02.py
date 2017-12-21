@@ -80,7 +80,6 @@ def test():
     """
     import os, sys
     print("checking types")
-
     
     import doctest
     assert doctest.testmod() and print("doctests OK") is None
